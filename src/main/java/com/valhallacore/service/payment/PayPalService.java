@@ -1,13 +1,11 @@
 package com.valhallacore.service.payment;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valhallacore.config.PayPalConfig;
 import com.valhallacore.dto.Constant;
 import com.valhallacore.dto.bo.Category;
 import com.valhallacore.dto.bo.ClientOrder;
 import com.valhallacore.dto.bo.Product;
 import com.valhallacore.dto.paypal.*;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,7 +22,7 @@ public class PayPalService {
     public static final String CURRENCY_CODE = Constant.USD;
     @Autowired
     private PayPalConfig payPalConfig;
-    public PayPalCreateOrderResponse createOrder(ClientOrder clientOrder) throws IOException {
+    public PayPalCreateOrderResponse createOrder(ClientOrder clientOrder) {
         String url = payPalConfig.getUrls().getCreateOrder();
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth(payPalConfig.getClient().getId(), payPalConfig.getClient().getSecret());
@@ -41,8 +39,7 @@ public class PayPalService {
         PayPalCreateOrderRequest createOrderRequest = buildRequestBody(clientOrder);
         HttpEntity<PayPalCreateOrderRequest> requestEntity = new HttpEntity<>(createOrderRequest, headers);
         RestTemplate restTemplate = new RestTemplate();
-        PayPalCreateOrderResponse createOrderResponse = restTemplate.postForEntity(url, requestEntity, PayPalCreateOrderResponse.class).getBody();
-        return createOrderResponse;
+        return restTemplate.postForEntity(url, requestEntity, PayPalCreateOrderResponse.class).getBody();
     }
     private PayPalCreateOrderRequest buildRequestBody(ClientOrder clientOrder) {
         PayPalCreateOrderRequest request = new PayPalCreateOrderRequest();
