@@ -1,5 +1,5 @@
 server:
-  port: 88888
+  port: 8888
 spring:
   datasource:
     jdbcUrl: jdbc:mysql://localhost:3306/valhalla_db_qa
@@ -18,6 +18,6 @@ paypal:
     id: AW6oKok-6RrDQmomgxeIRyJTIks5iUWS4ZjDZL1jjx3dWIBUTzZiY-i93A6hAh2SpwVJjN45-KHCSf7S
     secret: EP0KRzhR39Q0nZYYn_IvdABXkuUNLpaYtOvePHq4aWKTSA0ck5lpK4-lQXK3Q0gV-FQUQcHh5SDUb-Di
   urls:
-    cancel: http://149.28.156.104:88888/payment/cancel
-    success: http://149.28.156.104:88888/payment/success
+    cancel: http://149.28.156.104:8888/payment/cancel
+    success: http://149.28.156.104:8888/payment/success
     createOrder: https://api-m.sandbox.paypal.com/v2/checkout/orders
