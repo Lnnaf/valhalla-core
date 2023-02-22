@@ -1,6 +1,7 @@
 package com.valhallacore.dto.paypal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.valhallacore.Enum.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

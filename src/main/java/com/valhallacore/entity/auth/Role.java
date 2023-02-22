@@ -1,4 +1,4 @@
-package com.valhallacore.dto.auth;
+package com.valhallacore.entity.auth;
 
 public class Role {
     private Long id;

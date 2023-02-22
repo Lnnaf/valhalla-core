@@ -1,4 +1,4 @@
-package com.valhallacore.dto.bo;
+package com.valhallacore.Enum;
 
 
 public enum Category {

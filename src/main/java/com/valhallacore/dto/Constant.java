@@ -1,6 +1,6 @@
 package com.valhallacore.dto;
 
-import com.valhallacore.dto.paypal.CurrencyCode;
+import com.valhallacore.Enum.CurrencyCode;
 
 public class Constant {
     private Constant() {

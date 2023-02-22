@@ -1,8 +1,9 @@
 package com.valhallacore.service.payment;
 
+import com.valhallacore.Enum.Intent;
 import com.valhallacore.config.PayPalConfig;
 import com.valhallacore.dto.Constant;
-import com.valhallacore.dto.bo.Category;
+import com.valhallacore.Enum.Category;
 import com.valhallacore.dto.bo.ClientOrder;
 import com.valhallacore.dto.bo.Product;
 import com.valhallacore.dto.paypal.*;

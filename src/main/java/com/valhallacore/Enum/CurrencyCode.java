@@ -1,4 +1,4 @@
-package com.valhallacore.dto.paypal;
+package com.valhallacore.Enum;
 
 public enum CurrencyCode {
     VND("VND"),

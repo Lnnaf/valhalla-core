@@ -1,7 +1,7 @@
 package com.valhallacore.dto.paypal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.valhallacore.dto.bo.Category;
+import com.valhallacore.Enum.Category;
 import lombok.*;
 
 @Getter
