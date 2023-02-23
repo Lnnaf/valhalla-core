@@ -1,8 +1,9 @@
 package com.valhallacore.service.payment;
 
+import com.valhallacore.Enum.Intent;
 import com.valhallacore.config.PayPalConfig;
 import com.valhallacore.dto.Constant;
-import com.valhallacore.dto.bo.Category;
+import com.valhallacore.Enum.Category;
 import com.valhallacore.dto.bo.ClientOrder;
 import com.valhallacore.dto.bo.Product;
 import com.valhallacore.dto.paypal.*;
@@ -58,7 +59,7 @@ public class PayPalService {
         for(Product product: clientOrder.getProducts()){
             Money money = new Money();
             money.setCurrencyCode(CURRENCY_CODE);
-            money.setValue(String.valueOf(product.getSaleOff().getSalePrice()));
+            money.setValue(String.valueOf(product.getSalePrice()));
             itemTotalPrice += product.getSubTotal();
             Item item = new Item();
             item.setCategory(Category.DIGITAL_GOODS);
@@ -100,7 +101,7 @@ public class PayPalService {
 
     public double calculationDiscount(final List<Product> products, double discount) {
         AtomicReference<Double> totalPrice = new AtomicReference<>((double) 0);
-        products.forEach(product -> totalPrice.updateAndGet(v -> v + product.getPrice() * product.getQuantity()));
+        products.forEach(product -> totalPrice.updateAndGet(v -> v + product.getSalePrice() * product.getQuantity()));
         return  totalPrice.get() *  discount / 100;
     }
 

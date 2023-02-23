@@ -1,15 +1,16 @@
 spring:
   datasource:
-    jdbcUrl: jdbc:mysql://localhost:3306/valhalla_db
+    jdbcUrl: jdbc:mysql://localhost:3306/valhalla_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
     username: root
-    password: 12345678
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
 paypal:
   mode: sandbox
   client:

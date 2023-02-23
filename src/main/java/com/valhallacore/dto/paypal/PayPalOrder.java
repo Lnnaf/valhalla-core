@@ -1,10 +1,10 @@
 package com.valhallacore.dto.paypal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.valhallacore.Enum.Intent;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
