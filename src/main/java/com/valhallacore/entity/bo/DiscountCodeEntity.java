@@ -1,8 +1,7 @@
 package com.valhallacore.entity.bo;
 
+import com.valhallacore.entity.auth.SystemUserEntity;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
