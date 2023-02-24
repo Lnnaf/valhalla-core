@@ -1,11 +1,12 @@
 package com.valhallacore.entity.bo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -25,5 +26,7 @@ public class ProductEntity {
     private double salePrice;
     private double discountPercentage;
     private double originalPrice;
-
+    @OneToMany(mappedBy = "product")
+    @JsonBackReference
+    private Set<ProductImageEntity> productImageEntities;
 }

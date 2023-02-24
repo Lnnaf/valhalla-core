@@ -1,4 +1,4 @@
-package com.valhallacore.entity.bo;
+package com.valhallacore.entity.auth;
 
 import com.valhallacore.Enum.UserType;
 import lombok.*;
@@ -25,5 +25,6 @@ public class SystemUserEntity {
     private Date birthDay;
     private String email;
     private String phone;
-
+    @OneToOne
+    private Account account;
 }
