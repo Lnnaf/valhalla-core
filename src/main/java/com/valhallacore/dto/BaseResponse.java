@@ -2,7 +2,6 @@ package com.valhallacore.dto;
 
 import com.valhallacore.Enum.ResponseStatus;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 
@@ -14,7 +13,7 @@ import java.util.Date;
 public class BaseResponse {
     private int code;
     private ResponseStatus status;
-    private String message;
+    private String msg;
     private Object data;
-    private Date timeResponse;
+    private Date time;
 }
