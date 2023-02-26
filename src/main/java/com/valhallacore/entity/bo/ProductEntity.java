@@ -9,6 +9,7 @@ import lombok.*;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,7 +31,6 @@ public class ProductEntity implements Serializable {
     private double originalPrice;
     @ManyToOne
     private ProductCategoryEntity category;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Set<ProductImageEntity> productImageEntities;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ProductImageEntity> images;
 }

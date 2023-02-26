@@ -1,21 +1,25 @@
 package com.valhallacore.dto.bo;
 
+import com.valhallacore.entity.bo.ProductCategoryEntity;
+import com.valhallacore.entity.bo.ProductImageEntity;
+import lombok.*;
+
 import java.util.List;
 
-public interface ProductListDto {
-    Long getProductId();
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ProductListDto {
+    private Long id;
+    private String name;
+    private String description;
+    private int quantityAvailable;
+    private double discountPercentage;
+    private double originalPrice;
+    private ProductCategoryEntity category;
 
-    String getProductName();
+    private List<ProductImageEntity> images;
 
-    String getProductDescription();
-
-    Double getProductOriginalPrice();
-
-    Double getProductDiscountPercentage();
-
-    Long getCategoryId();
-
-    String getCategoryName();
-
-    String getImageUrlListToString();
 }
