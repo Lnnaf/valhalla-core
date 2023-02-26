@@ -19,6 +19,6 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
      * @param categoryId
      * @return A page of product find by name and categoryId, if categoryId is null or empty or blank then return all products regardless of their category
      */
-    @Query(value = "SELECT * FROM valhalla_db.product_entity WHERE valhalla_db.product_entity.name LIKE #{name} AND (valhalla_db.product_entity.category_id IS NULL OR valhalla_db.product_entity.category_id LIKE #{categoryId})", nativeQuery = true)
-    Page<ProductEntity> findByNameContainingAndCategory(Pageable pageable, @Param("name") String name, @Param("categoryId") Long categoryId);
+    @Query(value = "SELECT * FROM valhalla_db.product_entity WHERE (?1 IS NULL OR valhalla_db.product_entity.name LIKE ?1) AND (?2 IS NULL OR valhalla_db.product_entity.category_id = ?2)", nativeQuery = true)
+    Page<ProductEntity> findByNameContainingAndCategory(Pageable pageable, String name, Long categoryId);
 }
