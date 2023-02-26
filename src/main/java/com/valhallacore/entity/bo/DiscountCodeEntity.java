@@ -3,7 +3,7 @@ package com.valhallacore.entity.bo;
 import com.valhallacore.entity.auth.SystemUserEntity;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity

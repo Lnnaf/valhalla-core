@@ -1,5 +1,7 @@
 server:
   port: 8888
+  servlet:
+    context-path: /api/v1
 spring:
   datasource:
     jdbcUrl: jdbc:mysql://149.28.156.104:3306/valhalla_db_qa
