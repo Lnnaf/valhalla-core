@@ -7,6 +7,8 @@ import com.valhallacore.repository.bo.ProductImageEntityRepository;
 import com.valhallacore.service.bo.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,12 +33,11 @@ public class ProductServiceImpl implements ProductService {
      * @return A page of product find by name and categoryId, if categoryId is null or empty or blank then return all products regardless of their category
      */
     @Override
-    public Page<ProductListDto> findByNameContainingAndCategory(Pageable pageable, String name, String categoryId) {
-        Long validCategoryId = categoryId == null || categoryId.isEmpty() || categoryId.trim().isEmpty() ? null : Long.valueOf(categoryId);
-        String validName = name == null || name.isEmpty() || name.trim().isEmpty() ? null : name;
+    public Page<ProductEntity> findByNameContainingAndCategory(Pageable pageable, String name, String categoryId) {
+        Long validCategoryId = StringUtils.isBlank(categoryId) ? null : Long.valueOf(categoryId.trim());
+        String validName = StringUtils.isBlank(name) ? "" : name.trim();
 
-
-        return productEntityRepository.findByNameContainingAndCategory(pageable, validName, validCategoryId);
+        return validCategoryId != null ? productEntityRepository.findByNameContainingIgnoreCaseAndCategory_Id(validName, validCategoryId, pageable) : productEntityRepository.findByNameContainingIgnoreCase(validName, pageable);
     }
 
     /**

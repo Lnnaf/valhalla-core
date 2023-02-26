@@ -12,6 +12,7 @@ import com.valhallacore.service.bo.ProductCategoryService;
 import com.valhallacore.service.bo.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,7 +51,12 @@ public class PublicApiV1Controller {
                                                                              @RequestParam(value = "name", defaultValue = "") String name,
                                                                              @RequestParam(value = "categoryId", defaultValue = "") String categoryId) {
         Pageable pageable = PageRequest.of(page, size);
-        var response = productService.findByNameContainingAndCategory(pageable, name, categoryId);
+        var tempProductEntities = productService.findByNameContainingAndCategory(pageable, name, categoryId);
+        Page<ProductListDto> response = tempProductEntities.map(item -> {
+            ProductListDto productListDto = ProductListDto.builder().build();
+            BeanUtils.copyProperties(item, productListDto);
+            return productListDto;
+        });
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
