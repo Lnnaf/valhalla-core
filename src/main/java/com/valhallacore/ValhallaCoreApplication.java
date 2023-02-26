@@ -4,7 +4,6 @@ import com.valhallacore.entity.auth.Role;
 import com.valhallacore.repository.auth.RoleRepository;
 import com.valhallacore.service.auth.SystemUserService;
 import com.valhallacore.service.bo.ProductService;
-import com.vastik.spring.data.faker.DataFaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

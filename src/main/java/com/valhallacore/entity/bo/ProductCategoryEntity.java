@@ -1,8 +1,9 @@
-package com.valhallacore.entity.auth;
+package com.valhallacore.entity.bo;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -10,9 +11,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Role {
+public class ProductCategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @OneToMany(mappedBy = "category")
+    private Set<ProductEntity> products;
 }
