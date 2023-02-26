@@ -30,7 +30,7 @@ public class ProductEntity implements Serializable {
     private double originalPrice;
     @ManyToOne
     private ProductCategoryEntity category;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonBackReference
     private Set<ProductImageEntity> productImageEntities;
 }
