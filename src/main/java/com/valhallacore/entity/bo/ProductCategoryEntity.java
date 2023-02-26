@@ -1,5 +1,6 @@
 package com.valhallacore.entity.bo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,5 +18,6 @@ public class ProductCategoryEntity {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "category")
+    @JsonBackReference
     private Set<ProductEntity> products;
 }
