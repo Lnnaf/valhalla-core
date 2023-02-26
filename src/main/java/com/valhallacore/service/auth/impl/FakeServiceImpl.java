@@ -155,12 +155,30 @@ public class FakeServiceImpl implements FakeService {
 
         roleRepository.saveAll(roles);
 
-        for (int i = 0; i < 20; i++) {
-            ProductCategoryEntity productCategoryEntity = ProductCategoryEntity.builder()
-                    .name(this.dataFaker.esports().game())
-                    .build();
-            productCategoryEntityRepository.save(productCategoryEntity);
-        }
+        List<ProductCategoryEntity> categories = new ArrayList<>();
+        categories.add(ProductCategoryEntity.builder()
+                .name("education")
+                .build());
+        categories.add(ProductCategoryEntity.builder()
+                .name("steam wallet")
+                .build());
+        categories.add(ProductCategoryEntity.builder()
+                .name("steam games")
+                .build());
+        categories.add(ProductCategoryEntity.builder()
+                .name("premium account")
+                .build());
+        categories.add(ProductCategoryEntity.builder()
+                .name("software")
+                .build());
+        categories.add(ProductCategoryEntity.builder()
+                .name("vpn")
+                .build());
+        categories.add(ProductCategoryEntity.builder()
+                .name("music")
+                .build());
+
+        productCategoryEntityRepository.saveAll(categories);
 
         for (int i = 0; i < 109; i++) {
             ProductEntity product = ProductEntity.builder()
@@ -170,7 +188,7 @@ public class FakeServiceImpl implements FakeService {
                     .quantityAvailable(this.dataFaker.number().numberBetween(1, 15))
                     .originalPrice(this.dataFaker.number().randomDouble(3, 10, 10000))
                     .discountPercentage(this.dataFaker.number().randomDouble(2, 0, 50))
-                    .category(ProductCategoryEntity.builder().id(this.dataFaker.number().numberBetween(1L, 20L)).build())
+                    .category(ProductCategoryEntity.builder().id(this.dataFaker.number().numberBetween(1L, 7L)).build())
                     .build();
 
             // Save product and return id to product

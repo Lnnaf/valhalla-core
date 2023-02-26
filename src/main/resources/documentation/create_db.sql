@@ -10,6 +10,17 @@ create table account
         unique (password)
 );
 
+create table ads_banner_entity
+(
+    id           bigint auto_increment
+        primary key,
+    date_expiry  datetime(6)  null,
+    description  varchar(255) null,
+    image_url    varchar(255) null,
+    redirect_url varchar(255) null,
+    title        varchar(255) null
+);
+
 create table product_category_entity
 (
     id   bigint auto_increment
@@ -69,7 +80,7 @@ create table system_user_entity
     email      varchar(255) null,
     full_name  varchar(255) null,
     phone      varchar(255) null,
-    user_type  int          null,
+    user_type  smallint     null,
     username   varchar(255) null,
     account_id bigint       null,
     constraint FKmh78qgnm8xouquywdsw7qdyk
@@ -128,4 +139,5 @@ create table order_detail_entity
     constraint FKg8u6g80ebrefep6so6f9br7uv
         foreign key (product_id) references product_entity (id)
 );
+
 

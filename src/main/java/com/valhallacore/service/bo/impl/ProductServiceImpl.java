@@ -33,6 +33,8 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductEntity> findByNameContainingAndCategory(Pageable pageable, String name, String categoryId) {
         Long validCategoryId = categoryId == null || categoryId.isEmpty() || categoryId.trim().isEmpty() ? null : Long.valueOf(categoryId);
         String validName = name == null || name.isEmpty() || name.trim().isEmpty() ? null : name;
+
+
         return productEntityRepository.findByNameContainingAndCategory(pageable, validName, validCategoryId);
     }
 

@@ -8,7 +8,7 @@ plugins {
 
 group = 'com'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '19'
 
 configurations {
     compileOnly {
@@ -39,8 +39,6 @@ dependencies {
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hibernate5-jakarta
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5-jakarta', version: '2.14.2'
-
-
 
 
 }

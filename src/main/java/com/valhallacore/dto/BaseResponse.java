@@ -1,8 +1,8 @@
 package com.valhallacore.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.valhallacore.Enum.ResponseStatus;
 import lombok.*;
+
 
 import java.util.Date;
 

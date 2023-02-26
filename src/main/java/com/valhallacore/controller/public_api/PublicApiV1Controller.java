@@ -48,12 +48,12 @@ public class PublicApiV1Controller {
                                                                             @RequestParam(value = "name", defaultValue = "") String name,
                                                                             @RequestParam(value = "categoryId", defaultValue = "") String categoryId) {
         Pageable pageable = PageRequest.of(page, size);
-        var response =  productService.findByNameContainingAndCategory(pageable, name, categoryId);
+        var response = productService.findByNameContainingAndCategory(pageable, name, categoryId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     // Fake date API
-    @GetMapping("fakeRoles")
+    @GetMapping("fakeData")
     public ResponseEntity<?> fakerRoles() {
         fakeService.saveFakeProduct();
         return new ResponseEntity<>(HttpStatus.OK);
