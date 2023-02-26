@@ -1,5 +1,6 @@
 package com.valhallacore.service.bo.impl;
 
+import com.valhallacore.dto.bo.ProductListDto;
 import com.valhallacore.entity.bo.ProductEntity;
 import com.valhallacore.repository.bo.ProductEntityRepository;
 import com.valhallacore.repository.bo.ProductImageEntityRepository;
@@ -30,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
      * @return A page of product find by name and categoryId, if categoryId is null or empty or blank then return all products regardless of their category
      */
     @Override
-    public Page<ProductEntity> findByNameContainingAndCategory(Pageable pageable, String name, String categoryId) {
+    public Page<ProductListDto> findByNameContainingAndCategory(Pageable pageable, String name, String categoryId) {
         Long validCategoryId = categoryId == null || categoryId.isEmpty() || categoryId.trim().isEmpty() ? null : Long.valueOf(categoryId);
         String validName = name == null || name.isEmpty() || name.trim().isEmpty() ? null : name;
 

@@ -157,25 +157,25 @@ public class FakeServiceImpl implements FakeService {
 
         List<ProductCategoryEntity> categories = new ArrayList<>();
         categories.add(ProductCategoryEntity.builder()
-                .name("education")
+                .name("Education")
                 .build());
         categories.add(ProductCategoryEntity.builder()
-                .name("steam wallet")
+                .name("Steam Wallet")
                 .build());
         categories.add(ProductCategoryEntity.builder()
-                .name("steam games")
+                .name("Steam Games")
                 .build());
         categories.add(ProductCategoryEntity.builder()
-                .name("premium account")
+                .name("Premium Account")
                 .build());
         categories.add(ProductCategoryEntity.builder()
-                .name("software")
+                .name("Software")
                 .build());
         categories.add(ProductCategoryEntity.builder()
-                .name("vpn")
+                .name("Vpn")
                 .build());
         categories.add(ProductCategoryEntity.builder()
-                .name("music")
+                .name("Music")
                 .build());
 
         productCategoryEntityRepository.saveAll(categories);

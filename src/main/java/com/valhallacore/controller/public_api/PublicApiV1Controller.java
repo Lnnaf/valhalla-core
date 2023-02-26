@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valhallacore.Enum.ResponseStatus;
 import com.valhallacore.dto.BaseResponse;
+import com.valhallacore.dto.bo.ProductListDto;
 import com.valhallacore.entity.bo.ProductEntity;
 import com.valhallacore.service.auth.FakeService;
 import com.valhallacore.service.auth.SystemUserService;
@@ -41,12 +42,13 @@ public class PublicApiV1Controller {
      * @param name
      * @param categoryId
      * @return A custom page (page number and size) of product find by name and categoryId, if categoryId is null or empty or blank then return all products regardless of their category
+     * Note: imageUrls will be return as a string concatenated separated by commas - "," .
      */
     @GetMapping("products")
-    public ResponseEntity<Page<ProductEntity>> getProductsByNameAndCategory(@RequestParam(value = "size", defaultValue = "5") int size,
-                                                                            @RequestParam(value = "page", defaultValue = "0") int page,
-                                                                            @RequestParam(value = "name", defaultValue = "") String name,
-                                                                            @RequestParam(value = "categoryId", defaultValue = "") String categoryId) {
+    public ResponseEntity<Page<ProductListDto>> getProductsByNameAndCategory(@RequestParam(value = "size", defaultValue = "5") int size,
+                                                                             @RequestParam(value = "page", defaultValue = "0") int page,
+                                                                             @RequestParam(value = "name", defaultValue = "") String name,
+                                                                             @RequestParam(value = "categoryId", defaultValue = "") String categoryId) {
         Pageable pageable = PageRequest.of(page, size);
         var response = productService.findByNameContainingAndCategory(pageable, name, categoryId);
         return new ResponseEntity<>(response, HttpStatus.OK);
