@@ -1,8 +1,13 @@
 package com.valhallacore.controller.public_api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.valhallacore.Enum.ResponseStatus;
+import com.valhallacore.dto.BaseResponse;
 import com.valhallacore.entity.bo.ProductEntity;
 import com.valhallacore.service.auth.FakeService;
 import com.valhallacore.service.auth.SystemUserService;
+import com.valhallacore.service.bo.ProductCategoryService;
 import com.valhallacore.service.bo.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/")
 //@AllArgsConstructor(onConstructor = @__(@Autowired))
 @RequiredArgsConstructor
 @CrossOrigin("*")
@@ -23,6 +30,7 @@ public class PublicApiV1Controller {
     private final ProductService productService;
     private final SystemUserService systemUserService;
     private final FakeService fakeService;
+    private final ProductCategoryService productCategoryService;
 
     /**
      * Create by: BaoDP
@@ -40,8 +48,8 @@ public class PublicApiV1Controller {
                                                                             @RequestParam(value = "name", defaultValue = "") String name,
                                                                             @RequestParam(value = "categoryId", defaultValue = "") String categoryId) {
         Pageable pageable = PageRequest.of(page, size);
-
-        return new ResponseEntity<>(productService.findByNameContainingAndCategory(pageable, name, categoryId), HttpStatus.OK);
+        var response =  productService.findByNameContainingAndCategory(pageable, name, categoryId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     // Fake date API
@@ -49,5 +57,18 @@ public class PublicApiV1Controller {
     public ResponseEntity<?> fakerRoles() {
         fakeService.saveFakeProduct();
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("categories")
+    public ResponseEntity<BaseResponse> getCategories() {
+        var categories = productCategoryService.findAll();
+
+        var response = BaseResponse.builder()
+                .code(HttpStatus.OK.value())
+                .status(ResponseStatus.SUCCESS.getValue())
+                .data(categories)
+                .time(new Date()).build();
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -1,8 +1,12 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
 spring:
   datasource:
     jdbcUrl: jdbc:mysql://localhost:3306/valhalla_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
     username: root
-    password: 1234
+    password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

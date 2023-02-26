@@ -3,7 +3,7 @@ package com.valhallacore.entity.bo;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity

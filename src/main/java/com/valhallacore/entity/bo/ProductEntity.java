@@ -2,10 +2,13 @@ package com.valhallacore.entity.bo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -14,7 +17,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductEntity {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class ProductEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

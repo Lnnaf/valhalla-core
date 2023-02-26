@@ -1,13 +1,9 @@
 package com.valhallacore.entity.bo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.valhallacore.dto.bo.Product;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
-import java.util.List;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity

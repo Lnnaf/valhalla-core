@@ -1,8 +1,7 @@
 package com.valhallacore.entity.auth;
 
+import jakarta.persistence.*;
 import lombok.*;
-
-import javax.persistence.*;
 
 @Entity
 @Builder

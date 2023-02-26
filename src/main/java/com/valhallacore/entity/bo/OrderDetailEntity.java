@@ -2,7 +2,7 @@ package com.valhallacore.entity.bo;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Builder
@@ -19,5 +19,5 @@ public class OrderDetailEntity {
     @ManyToOne
     private CustomerOrderEntity customerOrder;
     private int quantity;
-    
+
 }
