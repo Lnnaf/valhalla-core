@@ -24,16 +24,30 @@ public class PublicApiV1Controller {
     private final SystemUserService systemUserService;
     private final FakeService fakeService;
 
+    /**
+     * Create by: BaoDP
+     * Date created: 24/02/2023
+     *
+     * @param size
+     * @param page
+     * @param name
+     * @param categoryId
+     * @return A custom page (page number and size) of product find by name and categoryId, if categoryId is null or empty or blank then return all products regardless of their category
+     */
     @GetMapping("products")
-    public ResponseEntity<Page<ProductEntity>> getProducts(@RequestParam(value = "size") int size,
-                                                           @RequestParam(value = "page") int page) {
+    public ResponseEntity<Page<ProductEntity>> getProductsByNameAndCategory(@RequestParam(value = "size", defaultValue = "5") int size,
+                                                                            @RequestParam(value = "page", defaultValue = "0") int page,
+                                                                            @RequestParam(value = "name", defaultValue = "") String name,
+                                                                            @RequestParam(value = "categoryId", defaultValue = "") String categoryId) {
         Pageable pageable = PageRequest.of(page, size);
-        return new ResponseEntity<>(productService.getAll(pageable), HttpStatus.OK);
+
+        return new ResponseEntity<>(productService.findByNameContainingAndCategory(pageable, name, categoryId), HttpStatus.OK);
     }
 
+    // Fake date API
     @GetMapping("fakeRoles")
-    public ResponseEntity<?> fakerRoles() throws Exception {
-        fakeService.saveFakeRoles();
+    public ResponseEntity<?> fakerRoles() {
+        fakeService.saveFakeProduct();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

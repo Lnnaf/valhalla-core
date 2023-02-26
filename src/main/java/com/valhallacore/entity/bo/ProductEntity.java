@@ -20,12 +20,12 @@ public class ProductEntity {
     private Long id;
     private String name;
     private String description;
-    private Long quantityAvailable;
+    private int quantityAvailable;
     private int quantity;
-    private int subTotal;
-    private double salePrice;
     private double discountPercentage;
     private double originalPrice;
+    @ManyToOne
+    private ProductCategoryEntity category;
     @OneToMany(mappedBy = "product")
     @JsonBackReference
     private Set<ProductImageEntity> productImageEntities;
