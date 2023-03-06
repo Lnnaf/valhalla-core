@@ -46,7 +46,7 @@ public class PublicApiV1Controller {
      * Note: imageUrls will be return as a string concatenated separated by commas - "," .
      */
     @GetMapping("products")
-    public ResponseEntity<Page<ProductListDto>> getProductsByNameAndCategory(@RequestParam(value = "size", defaultValue = "5") int size,
+    public ResponseEntity<BaseResponse> getProductsByNameAndCategory(@RequestParam(value = "size", defaultValue = "5") int size,
                                                                              @RequestParam(value = "page", defaultValue = "0") int page,
                                                                              @RequestParam(value = "name", defaultValue = "") String name,
                                                                              @RequestParam(value = "categoryId", defaultValue = "") String categoryId) {
@@ -56,8 +56,14 @@ public class PublicApiV1Controller {
             ProductListDto productListDto = ProductListDto.builder().build();
             BeanUtils.copyProperties(item, productListDto);
             return productListDto;
-        });
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        });œ
+        var baseResponse =  BaseResponse.builder()
+                .code(HttpStatus.OK.value())
+                .data(response)
+                .status(ResponseStatus.SUCCESS.getValue())
+                .time(new Date())
+                .build();
+        return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
 
     // Fake date API
