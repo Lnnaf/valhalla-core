@@ -1,12 +1,15 @@
 package com.valhallacore.service.bo.impl;
 
+import com.valhallacore.dto.BaseResponse;
 import com.valhallacore.dto.bo.ProductListDto;
 import com.valhallacore.entity.bo.ProductEntity;
 import com.valhallacore.repository.bo.ProductEntityRepository;
 import com.valhallacore.repository.bo.ProductImageEntityRepository;
 import com.valhallacore.service.bo.ProductService;
+import com.valhallacore.utils.GenerateBaseResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.weaver.ast.Var;
 import org.springframework.data.domain.Page;
@@ -38,6 +41,30 @@ public class ProductServiceImpl implements ProductService {
         String validName = StringUtils.isBlank(name) ? "" : name.trim();
 
         return validCategoryId != null ? productEntityRepository.findByNameContainingIgnoreCaseAndCategory_Id(validName, validCategoryId, pageable) : productEntityRepository.findByNameContainingIgnoreCase(validName, pageable);
+    }
+
+    @Override
+    public BaseResponse findById(final String id) {
+        try {
+            Long validId = Long.parseLong(id);
+
+            boolean productExists = productEntityRepository.findById(validId).isPresent();
+
+            if (productExists) {
+                // Đã check tồn tại ở trên
+                ProductEntity product = productEntityRepository.findById(validId).get();
+
+                if (ObjectUtils.isEmpty(product)) {
+                    return GenerateBaseResponse.noContentGetResponse("Product No Content", ProductEntity.builder().build());
+                } else {
+                    return GenerateBaseResponse.successGetResponse("Find success", product);
+                }
+            } else {
+                return GenerateBaseResponse.notFound("Product not found", null);
+            }
+        } catch (NumberFormatException nfe) {
+            return GenerateBaseResponse.invalidField("Invalid ID", null);
+        }
     }
 
     /**

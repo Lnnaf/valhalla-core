@@ -47,23 +47,29 @@ public class PublicApiV1Controller {
      */
     @GetMapping("products")
     public ResponseEntity<BaseResponse> getProductsByNameAndCategory(@RequestParam(value = "size", defaultValue = "5") int size,
-                                                                             @RequestParam(value = "page", defaultValue = "0") int page,
-                                                                             @RequestParam(value = "name", defaultValue = "") String name,
-                                                                             @RequestParam(value = "categoryId", defaultValue = "") String categoryId) {
+                                                                     @RequestParam(value = "page", defaultValue = "0") int page,
+                                                                     @RequestParam(value = "name", defaultValue = "") String name,
+                                                                     @RequestParam(value = "categoryId", defaultValue = "") String categoryId) {
         Pageable pageable = PageRequest.of(page, size);
         var tempProductEntities = productService.findByNameContainingAndCategory(pageable, name, categoryId);
         Page<ProductListDto> response = tempProductEntities.map(item -> {
             ProductListDto productListDto = ProductListDto.builder().build();
             BeanUtils.copyProperties(item, productListDto);
             return productListDto;
-        });œ
-        var baseResponse =  BaseResponse.builder()
+        });
+        var baseResponse = BaseResponse.builder()
                 .code(HttpStatus.OK.value())
                 .data(response)
                 .status(ResponseStatus.SUCCESS.getValue())
                 .time(new Date())
                 .build();
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("product")
+    public ResponseEntity<BaseResponse> findProductById(@RequestParam(value = "id", required = false) String id) {
+        BaseResponse response = productService.findById(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     // Fake date API
