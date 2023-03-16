@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class ProductEntity implements Serializable {
+public class ProductEntity extends AuditableEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,6 +29,7 @@ public class ProductEntity implements Serializable {
     private int quantity;
     private double discountPercentage;
     private double originalPrice;
+
     @ManyToOne
     private ProductCategoryEntity category;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

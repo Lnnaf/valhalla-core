@@ -14,6 +14,7 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseResponse {
     private int code;
+    private int count;
     private String status;
     private String msg;
     private Object data;

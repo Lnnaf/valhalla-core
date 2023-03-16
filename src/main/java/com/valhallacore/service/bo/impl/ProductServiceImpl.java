@@ -13,9 +13,13 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.weaver.ast.Var;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -44,6 +48,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductEntity> findByCategoryAndSomeNewestProduct(String categoryId) {
+        List<ProductEntity> products = new ArrayList<>();
+        Long validCategoryId = StringUtils.isBlank(categoryId) ? null : Long.valueOf(categoryId.trim());
+        if(validCategoryId != null){
+            products =  productEntityRepository.findByCategory_IdOrderByCreatedTimeDesc(validCategoryId,  PageRequest.of(0, 10));
+        }
+        return products;
+    }
+
+    @Override
     public BaseResponse findById(final String id) {
         try {
             Long validId = Long.parseLong(id);
@@ -51,7 +65,6 @@ public class ProductServiceImpl implements ProductService {
             boolean productExists = productEntityRepository.findById(validId).isPresent();
 
             if (productExists) {
-                // Đã check tồn tại ở trên
                 ProductEntity product = productEntityRepository.findById(validId).get();
 
                 if (ObjectUtils.isEmpty(product)) {

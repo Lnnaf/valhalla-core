@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,4 +25,6 @@ public interface ProductEntityRepository extends JpaRepository<ProductEntity, Lo
     Optional<ProductEntity> findById(Long id);
 
     Page<ProductEntity> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
+    List<ProductEntity> findByCategory_IdOrderByCreatedTimeDesc(Long categoryId, Pageable pageable);
 }

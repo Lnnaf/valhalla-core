@@ -10,8 +10,10 @@ import com.valhallacore.service.auth.FakeService;
 import com.valhallacore.service.auth.SystemUserService;
 import com.valhallacore.service.bo.ProductCategoryService;
 import com.valhallacore.service.bo.ProductService;
+import com.valhallacore.utils.GenerateBaseResponse;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,15 +26,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/product")
 //@AllArgsConstructor(onConstructor = @__(@Autowired))
 @RequiredArgsConstructor
 @CrossOrigin("*")
-public class PublicApiV1Controller {
+public class ProductController {
     private final ProductService productService;
     private final SystemUserService systemUserService;
     private final FakeService fakeService;
-    private final ProductCategoryService productCategoryService;
+
 
     /**
      * Create by: BaoDP
@@ -45,7 +47,7 @@ public class PublicApiV1Controller {
      * @return A custom page (page number and size) of product find by name and categoryId, if categoryId is null or empty or blank then return all products regardless of their category
      * Note: imageUrls will be return as a string concatenated separated by commas - "," .
      */
-    @GetMapping("products")
+    @GetMapping("get")
     public ResponseEntity<BaseResponse> getProductsByNameAndCategory(@RequestParam(value = "size", defaultValue = "5") int size,
                                                                      @RequestParam(value = "page", defaultValue = "0") int page,
                                                                      @RequestParam(value = "name", defaultValue = "") String name,
@@ -66,29 +68,22 @@ public class PublicApiV1Controller {
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
 
-    @GetMapping("product")
-    public ResponseEntity<BaseResponse> findProductById(@RequestParam(value = "id", required = false) String id) {
+    @GetMapping("get/{id}")
+    public ResponseEntity<BaseResponse> findProductById(@PathVariable(required = true) String id) {
         BaseResponse response = productService.findById(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // Fake date API
-    @GetMapping("fakeData")
-    public ResponseEntity<?> fakerRoles() {
-        fakeService.saveFakeProduct();
-        return new ResponseEntity<>(HttpStatus.OK);
+    @GetMapping("get/newest/category/{categoryId}")
+    public ResponseEntity<BaseResponse> getNewestProductByCategory(@PathVariable(required = false) String categoryId) {
+        var products = productService.findByCategoryAndSomeNewestProduct(categoryId);
+        return new ResponseEntity<>(GenerateBaseResponse.successGetResponse(null, products), HttpStatus.OK);
     }
+//    // Fake date API
+//    @GetMapping("fakeData")
+//    public ResponseEntity<?> fakerRoles() {
+//        fakeService.saveFakeProduct();
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
-    @GetMapping("categories")
-    public ResponseEntity<BaseResponse> getCategories() {
-        var categories = productCategoryService.findAll();
-
-        var response = BaseResponse.builder()
-                .code(HttpStatus.OK.value())
-                .status(ResponseStatus.SUCCESS.getValue())
-                .data(categories)
-                .time(new Date()).build();
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
 }

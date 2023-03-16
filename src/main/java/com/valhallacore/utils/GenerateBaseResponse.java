@@ -6,14 +6,22 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
 
 public class GenerateBaseResponse {
     public static BaseResponse successGetResponse(String msg, Object data) {
+        int count;
+        if(data instanceof Collection){
+            count = ((Collection<?>) data).size();
+        }else {
+            count = 1;
+        }
         return BaseResponse.builder()
                 .code(HttpStatus.OK.value())
                 .msg(msg)
                 .data(data)
+                .count(count)
                 .status(ResponseStatus.SUCCESS.getValue())
                 .time(new Date())
                 .build();
@@ -23,6 +31,7 @@ public class GenerateBaseResponse {
         return BaseResponse.builder()
                 .code(HttpStatus.NO_CONTENT.value())
                 .msg(msg)
+                .count(0)
                 .data(data)
                 .status(ResponseStatus.SUCCESS.getValue())
                 .time(new Date())
