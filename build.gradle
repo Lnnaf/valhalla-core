@@ -51,7 +51,7 @@ tasks.named('test') {
 }
 jib {
     from {
-        image = 'adoptopenjdk:19-jre-hotspot'
+        image = 'openjdk:19-alpine'
     }
     to {
         image = 'valhalla-core-jib'
